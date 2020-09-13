@@ -9,12 +9,16 @@ namespace ClassLibrary1
     {
         IWebDriver driver;
         private WebDriverWait wait;
-        IWebElement JiraLogo => driver.FindElement(By.Id("jira"));
-        IWebElement CreateButton => driver.FindElement(By.Id("create_link"));
-        IWebElement SummaryTextBox => wait.Until(driver => driver.FindElement(By.Id("summary")));
-        IWebElement SprintDropDown => driver.FindElement(By.Id("customfield_10100-field"));
-        IWebElement SendFormButton => driver.FindElement(By.Id("create-issue-submit"));
-        IWebElement CreatedAlert => wait.Until(driver => driver.FindElement(By.ClassName("aui-message-success")));
+        IWebElement jiraLogo => wait.Until(driver => driver.FindElement(By.Id("jira")));
+        IWebElement createButton => driver.FindElement(By.Id("create_link"));
+        IWebElement issueTypeButton => wait.Until(driver => driver.FindElement(By.Id("issuetype-field")));
+        IWebElement storyselector => wait.Until(driver => driver.FindElement(By.LinkText("Story")));
+        IWebElement bugselector => wait.Until(driver => driver.FindElement(By.LinkText("Bug")));
+        IWebElement epicselector => wait.Until(driver => driver.FindElement(By.LinkText("Epic")));
+        IWebElement summaryTextBox => wait.Until(driver => driver.FindElement(By.Id("summary")));
+        IWebElement sprintDropDown => driver.FindElement(By.Id("customfield_10100-field"));
+        IWebElement sendFormButton => driver.FindElement(By.Id("create-issue-submit"));
+        IWebElement createdAlert => wait.Until(driver => driver.FindElement(By.ClassName("aui-message-success")));
 
 
         public DashboardPage(IWebDriver driver, WebDriverWait wait)
@@ -25,38 +29,70 @@ namespace ClassLibrary1
 
         public bool LogoDisplayed()
         {
-            return JiraLogo.Displayed;
+            return jiraLogo.Displayed;
         }
 
         public DashboardPage ClickCreateButton()
         {
-            CreateButton.Click();
+            createButton.Click();
             return this;
         }
 
+        public DashboardPage IssueTypeButton()
+        {
+            issueTypeButton.Click();
+            return this;
+        }
+        public DashboardPage SelectIssue(string type)
+        {
+            //if (type.Equals("Story")) {
+            //    storyselector.Click();
+
+            //}
+            //else if (type.Equals("Bug"))
+            //{
+                
+            //        bugselector.Click();
+
+            //    }
+            //else if (type.Equals("Epic"))
+            //{
+
+            //    epicselector.Click();
+
+            //}
+
+            return this;
+        }
+        public DashboardPage Selectbug(string type)
+        {
+            
+              bugselector.Click();
+                return this;
+        }
         public DashboardPage FillSummaryField(string summary)
         {
-            SummaryTextBox.SendKeys(summary);
+            summaryTextBox.SendKeys(summary);
             return this;
         }
 
         public DashboardPage ExpandSprintDropDown()
         {
 
-            SprintDropDown.Click();
-            SprintDropDown.SendKeys(Keys.Enter);
+            sprintDropDown.Click();
+            sprintDropDown.SendKeys(Keys.Enter);
             return this;
         }
 
         public DashboardPage SenndIssueForm()
         {
-            SendFormButton.Click();
+            sendFormButton.Click();
             return this;
         }
 
         public bool CreatedAlertDisplayed()
         {
-            return CreatedAlert.Displayed;
+            return createdAlert.Displayed;
         }
 
     }
