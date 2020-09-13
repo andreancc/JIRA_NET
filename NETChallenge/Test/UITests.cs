@@ -27,6 +27,13 @@ namespace JiraAutomationTests
             };
             _driver.Manage().Window.Maximize();
             _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 30));
+            var loginPage = new LoginPage(_driver);
+            loginPage
+                .fillUsername()
+                .fillPassword()
+                .ClickLogin();
+            Thread.Sleep(5000);
+
         }
 
 
@@ -34,74 +41,39 @@ namespace JiraAutomationTests
         [Test]
         public void JiraAllowsToCreateANewStory()
         {
-            var loginPage = new LoginPage(_driver);
-            loginPage
-                .fillUsername()
-                .fillPassword()
-                .ClickLogin();
-            Thread.Sleep(5000);
+            
             var dashboardPage = new DashboardPage(_driver, _wait);
             Assert.IsTrue(dashboardPage.LogoDisplayed());
             dashboardPage
                 .ClickCreateButton()
-                .IssueTypeButton()
-                .SelectIssue("story")
-                .FillSummaryField("Story to test")
+                .IssueTypeButton("Story")
+               
+              .FillSummaryField("Story to test")
                 .ExpandSprintDropDown()
                 .SenndIssueForm();
             Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
         }
         [Test]
-        public void JiraAllowsToCreateANewbug()
+        public void JiraAllowsToCreateANewBug()
         {
-            var loginPage = new LoginPage(_driver);
-            loginPage
-                .fillUsername()
-                .fillPassword()
-                .ClickLogin();
-            Thread.Sleep(5000);
+
             var dashboardPage = new DashboardPage(_driver, _wait);
             Assert.IsTrue(dashboardPage.LogoDisplayed());
             dashboardPage
                 .ClickCreateButton()
-                .IssueTypeButton()
-                .Selectbug("Story")
-                .FillSummaryField("Story to test")
+                .IssueTypeButton("Bug")
+                .FillSummaryField("Bug to test")
                 .ExpandSprintDropDown()
                 .SenndIssueForm();
             Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
         }
-        [Test]
-        public void JiraAllowsToMoveTicket()
-        {
-            var loginPage = new LoginPage(_driver);
-            loginPage
-                .fillUsername()
-                .fillPassword()
-                .ClickLogin();
-            Thread.Sleep(5000);
-            var dashboardPage = new DashboardPage(_driver, _wait);
-            Assert.IsTrue(dashboardPage.LogoDisplayed());
-            dashboardPage
-                .ClickCreateButton()
-                .IssueTypeButton()
-                .Selectbug("Story")
-                .FillSummaryField("Story to test")
-                .ExpandSprintDropDown()
-                .SenndIssueForm();
-            Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
 
-            var backlogPage = new BacklogPage(_driver, _wait);
-            backlogPage
-               .ClicProjectsButton()
-               .SelectProjectName();
-
-        }
 
         [TearDown]
         public void TearDown()
         {
             _driver.Close();
+            _driver.Quit();
         }
     }
 }

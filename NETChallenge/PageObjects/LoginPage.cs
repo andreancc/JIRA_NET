@@ -42,7 +42,7 @@ namespace ClassLibrary1
         public string FailedAccess()
         {
            var errormessage = driver.FindElement(By.Id("usernameerror")).Text;
-           Console.WriteLine(test);
+           Console.WriteLine(errormessage);
            return errormessage;
         }
 

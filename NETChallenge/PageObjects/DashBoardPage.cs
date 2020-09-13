@@ -12,9 +12,7 @@ namespace ClassLibrary1
         IWebElement jiraLogo => wait.Until(driver => driver.FindElement(By.Id("jira")));
         IWebElement createButton => driver.FindElement(By.Id("create_link"));
         IWebElement issueTypeButton => wait.Until(driver => driver.FindElement(By.Id("issuetype-field")));
-        IWebElement storyselector => wait.Until(driver => driver.FindElement(By.LinkText("Story")));
-        IWebElement bugselector => wait.Until(driver => driver.FindElement(By.LinkText("Bug")));
-        IWebElement epicselector => wait.Until(driver => driver.FindElement(By.LinkText("Epic")));
+  
         IWebElement summaryTextBox => wait.Until(driver => driver.FindElement(By.Id("summary")));
         IWebElement sprintDropDown => driver.FindElement(By.Id("customfield_10100-field"));
         IWebElement sendFormButton => driver.FindElement(By.Id("create-issue-submit"));
@@ -38,25 +36,19 @@ namespace ClassLibrary1
             return this;
         }
 
-        public DashboardPage IssueTypeButton()
+        public DashboardPage IssueTypeButton(string type)
         {
             issueTypeButton.Click();
-            return this;
-        }
-        public DashboardPage SelectIssue(string type)
-        {
-            
+               issueTypeButton.SendKeys(type);
+            issueTypeButton.SendKeys(Keys.Enter);
 
             return this;
         }
-        public DashboardPage Selectbug(string type)
-        {
-            
-              bugselector.Click();
-                return this;
-        }
+      
         public DashboardPage FillSummaryField(string summary)
+
         {
+            summaryTextBox.Click();
             summaryTextBox.SendKeys(summary);
             return this;
         }
