@@ -67,13 +67,101 @@ namespace JiraAutomationTests
                 .SenndIssueForm();
             Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
         }
+        [Test]
+        public void MoveTicketFromBacklogToSprint()
+        {
+
+            var backlogPage = new BacklogPage(_driver, _wait);
+            backlogPage
+                 .ClicProjectsButton()
+                 .SelectProjectName()
+                 .SelectBacklog();
+
+ Assert.IsTrue(backlogPage.ConfirmationDisplayed());
+        }
+
+
+
+        [Test]
+        public void AssignTicketToPerson()
+        {
+            var backlogPage = new BacklogPage(_driver, _wait);
+            backlogPage
+                 .ClicProjectsButton()
+                 .SelectProjectName()
+                 .SelectFirstTicket();
+
+            var ticketInfomationPage = new TicketInfomationPage(_driver, _wait);
+            ticketInfomationPage
+                 .AssingButton()
+                 .AssignPerson();
+
+            Assert.IsTrue(ticketInfomationPage.SubmitAlertDisplayed());
+        }
+
+        [Test]
+        public void MoveticketToInProgress()
+        {
+            var backlogPage = new BacklogPage(_driver, _wait);
+            backlogPage
+                 .ClicProjectsButton()
+                 .SelectProjectName();
+                 
+
+            var sprintDashboardPage = new SprintDashboardPage(_driver, _wait);
+            int columninprogressitems = sprintDashboardPage.CountTicketsInProgress();
+
+            sprintDashboardPage
+              .MoveToInProgress();
+
+            
+
+            Assert.LessOrEqual(columninprogressitems, sprintDashboardPage.CountTicketsInProgress());
+
+        }
+
+        [Test]
+        public void MoveticketToDone()
+        {
+            var backlogPage = new BacklogPage(_driver, _wait);
+            backlogPage
+                 .ClicProjectsButton()
+                 .SelectProjectName();
+
+
+            var sprintDashboardPage = new SprintDashboardPage(_driver, _wait);
+            int columnDoneitems = sprintDashboardPage.CountTicketsInDone();
+            sprintDashboardPage
+
+                 .MoveToDone();
+            Assert.LessOrEqual(columnDoneitems, sprintDashboardPage.CountTicketsInDone());
+        }
+        [Test]
+        public void AddCommentToTicket()
+        {
+            var backlogPage = new BacklogPage(_driver, _wait);
+            backlogPage
+                 .ClicProjectsButton()
+                 .SelectProjectName();
+                 
+
+            var sprintDashboardPage = new SprintDashboardPage(_driver, _wait);
+            sprintDashboardPage
+                .SelectActiveSprint()
+                .SelectFirstTicket();
+            var ticketInfomationPage = new TicketInfomationPage(_driver, _wait);
+            ticketInfomationPage
+                .CommentTicket("nuevo comentario");
+                
+               Assert.IsTrue(ticketInfomationPage.FindComment("nuevo comentario"));
+        }
 
 
         [TearDown]
         public void TearDown()
         {
-            _driver.Close();
-            _driver.Quit();
+            //_driver.Close();
+            //_driver.Quit();
         }
     }
 }

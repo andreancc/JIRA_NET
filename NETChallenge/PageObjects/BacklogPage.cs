@@ -2,6 +2,9 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using System.Threading;
+using OpenQA.Selenium.Interactions;
+
 
 namespace ClassLibrary1
 
@@ -11,22 +14,29 @@ namespace ClassLibrary1
 
         IWebDriver driver;
         private WebDriverWait wait;
-        IWebElement jiraLogo => wait.Until(driver => driver.FindElement(By.Id("jira")));
+
         IWebElement projectsButton => driver.FindElement(By.Id("browse_link"));
-        IWebElement projectnameselector => wait.Until(driver => driver.FindElement(By.XPath("xpath=//a[contains(text(),'Test Project (TP)')]")));
-       
+        IWebElement projectnameselector => wait.Until(driver => driver.FindElement(By.XPath("//a[contains(text(),'Test Project (TP)')]")));
+        IWebElement backlogButton => wait.Until(driver => driver.FindElement(By.CssSelector(".agile-icon-plan")));
+        IWebElement firstTicketBacklog => wait.Until(driver => driver.FindElement(By.CssSelector(".ghx-issues:nth-child(2) > .js-issue:nth-child(2) .ghx-row")));
+        IWebElement sendToSprintButton => wait.Until(driver => driver.FindElement(By.Id("ghx-issue-ctx-action-send-to-sprint-1")));
+        IWebElement confirmSend => wait.Until(driver => driver.FindElement(By.CssSelector(".button-panel-button")));
+        IWebElement ConfimrMessage => wait.Until(driver => driver.FindElement(By.CssSelector(".aui-message")));
+        
+
+
+
+
 
         public BacklogPage(IWebDriver driver, WebDriverWait wait)
         {
             this.driver = driver;
             this.wait = wait;
+
+           // this.wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
         }
 
-        public bool LogoDisplayed()
-        {
-            return jiraLogo.Displayed;
-        }
-
+       
         public BacklogPage ClicProjectsButton()
         {
             projectsButton.Click();
@@ -38,5 +48,40 @@ namespace ClassLibrary1
             projectnameselector.Click();
             return this;
         }
+        public BacklogPage SelectSprint()
+        {
+            sendToSprintButton.Click();
+            return this;
+        }
+
+        
+        public BacklogPage SelectBacklog()
+        {
+            Thread.Sleep(2000);
+            backlogButton.Click();
+            Thread.Sleep(2000);
+            Actions action = new Actions(driver);
+            action.ContextClick(firstTicketBacklog).SendKeys(Keys.ArrowDown).SendKeys(Keys.Enter).Perform();
+            confirmSend.Click();
+            
+            return this;
+        }
+       
+        public BacklogPage SelectFirstTicket()
+        {
+            Thread.Sleep(2000);
+            backlogButton.Click();
+            Thread.Sleep(2000);
+            Actions action = new Actions(driver);
+            action.ContextClick(firstTicketBacklog).SendKeys(Keys.Enter).Perform();
+          
+            return this;
+        }
+        public bool ConfirmationDisplayed()
+        {
+            return ConfimrMessage.Displayed;
+        }
+
+
     }
 }

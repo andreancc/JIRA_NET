@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using System.Threading;
 
 
 namespace ClassLibrary1
@@ -17,6 +18,7 @@ namespace ClassLibrary1
         IWebElement sprintDropDown => driver.FindElement(By.Id("customfield_10100-field"));
         IWebElement sendFormButton => driver.FindElement(By.Id("create-issue-submit"));
         IWebElement createdAlert => wait.Until(driver => driver.FindElement(By.ClassName("aui-message-success")));
+
 
 
         public DashboardPage(IWebDriver driver, WebDriverWait wait)
@@ -49,6 +51,7 @@ namespace ClassLibrary1
 
         {
             summaryTextBox.Click();
+            Thread.Sleep(500);
             summaryTextBox.SendKeys(summary);
             return this;
         }
