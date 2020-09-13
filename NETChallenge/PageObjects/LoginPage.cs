@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
-using System.Configuration;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
+using System;
 
 namespace ClassLibrary1
 {
@@ -8,9 +10,12 @@ namespace ClassLibrary1
         private readonly string ConfigUsername = "andreancc";
         private readonly string ConfigPassword = "andreancc";
         IWebDriver driver;
+        private WebDriverWait wait;
         private IWebElement Username => driver.FindElement(By.Id("login-form-username"));
         private IWebElement Password => driver.FindElement(By.Id("login-form-password"));
         private IWebElement LoguinButton => driver.FindElement(By.Id("login"));
+        private IWebElement loginError => wait.Until(driver => driver.FindElement(By.Id("usernameerror")));
+        
 
         public LoginPage(IWebDriver driver)
         {
@@ -33,6 +38,12 @@ namespace ClassLibrary1
         {
             LoguinButton.Click();
             return this;
+        }
+        public string FailedAccess()
+        {
+           var errormessage = driver.FindElement(By.Id("usernameerror")).Text;
+           Console.WriteLine(test);
+           return errormessage;
         }
 
 

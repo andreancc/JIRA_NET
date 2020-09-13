@@ -45,22 +45,7 @@ namespace ClassLibrary1
         }
         public DashboardPage SelectIssue(string type)
         {
-            //if (type.Equals("Story")) {
-            //    storyselector.Click();
-
-            //}
-            //else if (type.Equals("Bug"))
-            //{
-                
-            //        bugselector.Click();
-
-            //    }
-            //else if (type.Equals("Epic"))
-            //{
-
-            //    epicselector.Click();
-
-            //}
+            
 
             return this;
         }

@@ -29,39 +29,28 @@ namespace JiraAutomationTests
             _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 30));
         }
 
-        //[Test]
-        //public void JiraAllowsToTheUserLoginIn()
-        //{
-        //    var loginPage = new LoginPage(_driver);
-        //    loginPage
-        //        .fillUsername()
-        //        .fillPassword()
-        //        .ClickLogin();
-        //    Thread.Sleep(5000);
-        //    var jiraLogo = _driver.FindElementById("jira");
-        //    Assert.IsTrue(jiraLogo.Displayed);
-        //}
 
-        //[Test]
-        //public void JiraAllowsToCreateANewStory()
-        //{
-        //    var loginPage = new LoginPage(_driver);
-        //    loginPage
-        //        .fillUsername()
-        //        .fillPassword()
-        //        .ClickLogin();
-        //    Thread.Sleep(5000);
-        //    var dashboardPage = new DashboardPage(_driver, _wait);
-        //    Assert.IsTrue(dashboardPage.LogoDisplayed());
-        //    dashboardPage
-        //        .ClickCreateButton()
-        //        .IssueTypeButton()
-        //        .SelectIssue("story")
-        //        .FillSummaryField("Story to test")
-        //        .ExpandSprintDropDown()
-        //        .SenndIssueForm();
-        //    Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
-        //}
+
+        [Test]
+        public void JiraAllowsToCreateANewStory()
+        {
+            var loginPage = new LoginPage(_driver);
+            loginPage
+                .fillUsername()
+                .fillPassword()
+                .ClickLogin();
+            Thread.Sleep(5000);
+            var dashboardPage = new DashboardPage(_driver, _wait);
+            Assert.IsTrue(dashboardPage.LogoDisplayed());
+            dashboardPage
+                .ClickCreateButton()
+                .IssueTypeButton()
+                .SelectIssue("story")
+                .FillSummaryField("Story to test")
+                .ExpandSprintDropDown()
+                .SenndIssueForm();
+            Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
+        }
         [Test]
         public void JiraAllowsToCreateANewbug()
         {
@@ -76,7 +65,7 @@ namespace JiraAutomationTests
             dashboardPage
                 .ClickCreateButton()
                 .IssueTypeButton()
-                .Selectbug("Bug")
+                .Selectbug("Story")
                 .FillSummaryField("Story to test")
                 .ExpandSprintDropDown()
                 .SenndIssueForm();
@@ -91,6 +80,16 @@ namespace JiraAutomationTests
                 .fillPassword()
                 .ClickLogin();
             Thread.Sleep(5000);
+            var dashboardPage = new DashboardPage(_driver, _wait);
+            Assert.IsTrue(dashboardPage.LogoDisplayed());
+            dashboardPage
+                .ClickCreateButton()
+                .IssueTypeButton()
+                .Selectbug("Story")
+                .FillSummaryField("Story to test")
+                .ExpandSprintDropDown()
+                .SenndIssueForm();
+            Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
 
             var backlogPage = new BacklogPage(_driver, _wait);
             backlogPage

@@ -13,7 +13,7 @@ namespace ClassLibrary1
         private WebDriverWait wait;
         IWebElement jiraLogo => wait.Until(driver => driver.FindElement(By.Id("jira")));
         IWebElement projectsButton => driver.FindElement(By.Id("browse_link"));
-        IWebElement projectnameselector => wait.Until(driver => driver.FindElement(By.Xpath("xpath=//a[contains(text(),'Test Project (TP)')]")));
+        IWebElement projectnameselector => wait.Until(driver => driver.FindElement(By.XPath("xpath=//a[contains(text(),'Test Project (TP)')]")));
        
 
         public BacklogPage(IWebDriver driver, WebDriverWait wait)
@@ -27,13 +27,13 @@ namespace ClassLibrary1
             return jiraLogo.Displayed;
         }
 
-        public DashboardPage ClicProjectsButton()
+        public BacklogPage ClicProjectsButton()
         {
             projectsButton.Click();
             return this;
         }
 
-        public DashboardPage SelectProjectName()
+        public BacklogPage SelectProjectName()
         {
             projectnameselector.Click();
             return this;
