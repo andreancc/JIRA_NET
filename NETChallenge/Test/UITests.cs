@@ -13,7 +13,7 @@ using System.Configuration;
 namespace JiraAutomationTests
 {
     [TestFixture]
-   // [Parallelizable(ParallelScope.All)]
+   
     public class UITests
     {
        private IWebDriver _driver;
@@ -66,7 +66,7 @@ namespace JiraAutomationTests
                 .ClickCreateButton()
                 .IssueTypeButton("Bug")
                 .FillSummaryField("Bug to test")
-                //.ExpandSprintDropDown()
+                
                 .SenndIssueForm();
             Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
         }
