@@ -1,4 +1,4 @@
-﻿using ClassLibrary1;
+﻿using ClassLibrary;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -29,7 +29,7 @@ namespace JiraAutomationTests
             _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 30));
             var loginPage = new LoginPage(_driver);
             loginPage
-                .fillUsername()
+                .Username()
                 .fillPassword()
                 .ClickLogin();
             Thread.Sleep(5000);
@@ -48,7 +48,7 @@ namespace JiraAutomationTests
                 .ClickCreateButton()
                 .IssueTypeButton("Story")
                
-              .FillSummaryField("Story to test")
+                .FillSummaryField("Story to test")
                 .ExpandSprintDropDown()
                 .SenndIssueForm();
             Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
@@ -63,7 +63,7 @@ namespace JiraAutomationTests
                 .ClickCreateButton()
                 .IssueTypeButton("Bug")
                 .FillSummaryField("Bug to test")
-                .ExpandSprintDropDown()
+                //.ExpandSprintDropDown()
                 .SenndIssueForm();
             Assert.IsTrue(dashboardPage.CreatedAlertDisplayed());
         }
@@ -160,8 +160,8 @@ namespace JiraAutomationTests
         [TearDown]
         public void TearDown()
         {
-            //_driver.Close();
-            //_driver.Quit();
+            _driver.Close();
+            _driver.Quit();
         }
     }
 }

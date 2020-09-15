@@ -2,8 +2,9 @@
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
+using System.Configuration;
 
-namespace ClassLibrary1
+namespace ClassLibrary
 {
     public class LoginPage
     {
@@ -11,32 +12,33 @@ namespace ClassLibrary1
         private readonly string ConfigPassword = "andreancc";
         IWebDriver driver;
         private WebDriverWait wait;
-        private IWebElement Username => driver.FindElement(By.Id("login-form-username"));
-        private IWebElement Password => driver.FindElement(By.Id("login-form-password"));
-        private IWebElement LoguinButton => driver.FindElement(By.Id("login"));
-        private IWebElement loginError => wait.Until(driver => driver.FindElement(By.Id("usernameerror")));
+        private IWebElement user => driver.FindElement(By.Id("login-form-username"));
+        private IWebElement password => driver.FindElement(By.Id("login-form-password"));
+        private IWebElement loginButton => driver.FindElement(By.Id("login"));
+  
         
 
         public LoginPage(IWebDriver driver)
         {
             this.driver = driver;
+
         }
 
-        public LoginPage fillUsername()
+        public LoginPage Username()
         {
-            Username.SendKeys(ConfigUsername);
+            user.SendKeys(ConfigUsername);
             return this;
         }
 
         public LoginPage fillPassword()
         {
-            Password.SendKeys(ConfigPassword);
+            password.SendKeys(ConfigPassword);
             return this;
         }
 
         public LoginPage ClickLogin()
         {
-            LoguinButton.Click();
+            loginButton.Click();
             return this;
         }
         public string FailedAccess()

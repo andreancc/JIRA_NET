@@ -1,12 +1,8 @@
-﻿using ClassLibrary1;
+﻿using ClassLibrary;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using RestSharp;
-using RestSharp.Authenticators;
 using System;
-using System.Configuration;
 using System.Threading;
 
 namespace JiraLoginTest
@@ -29,24 +25,24 @@ namespace JiraLoginTest
             _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 30));
         }
 
-        //[Test]
-        //public void JiraAllowsToTheUserLoginIn()
-        //{
-        //    var loginPage = new LoginPage(_driver);
-        //    loginPage
-        //        .fillUsername()
-        //        .fillPassword()
-        //        .ClickLogin();
-        //    Thread.Sleep(5000);
-        //    var jiraLogo = _driver.FindElementById("jira");
-        //    Assert.IsTrue(jiraLogo.Displayed);
-        //}
+        [Test]
+        public void LoginIn()
+        {
+            var loginPage = new LoginPage(_driver);
+            loginPage
+                .Username()
+                .fillPassword()
+                .ClickLogin();
+            Thread.Sleep(5000);
+            var jiraLogo = _driver.FindElementById("jira");
+            Assert.IsTrue(jiraLogo.Displayed);
+        }
         [Test]
         public void JiraDeniesAccess()
         {
             var loginPage = new LoginPage(_driver);
             loginPage
-                .fillUsername()
+                .Username()
                 .ClickLogin();
 
             Thread.Sleep(5000);
@@ -58,6 +54,7 @@ namespace JiraLoginTest
         public void TearDown()
         {
             _driver.Close();
+            _driver.Quit();
         }
     }
 }

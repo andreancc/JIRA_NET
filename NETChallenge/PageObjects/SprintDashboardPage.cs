@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.UI;
 using System.Threading;
 using OpenQA.Selenium.Interactions;
 using System.Collections;
-namespace ClassLibrary1
+namespace ClassLibrary
 
 
 {

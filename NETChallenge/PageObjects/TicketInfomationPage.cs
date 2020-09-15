@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System.Threading;
 using OpenQA.Selenium.Interactions;
-namespace ClassLibrary1
+namespace ClassLibrary
 {
     public class TicketInfomationPage
     {

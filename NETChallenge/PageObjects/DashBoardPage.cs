@@ -4,7 +4,7 @@ using SeleniumExtras.WaitHelpers;
 using System.Threading;
 
 
-namespace ClassLibrary1
+namespace ClassLibrary
 {
     public class DashboardPage
     {

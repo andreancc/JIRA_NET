@@ -1,12 +1,10 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 using System.Threading;
 using OpenQA.Selenium.Interactions;
 
 
-namespace ClassLibrary1
+namespace ClassLibrary
 
 {
     public class BacklogPage
@@ -33,7 +31,7 @@ namespace ClassLibrary1
             this.driver = driver;
             this.wait = wait;
 
-           // this.wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+          
         }
 
        
