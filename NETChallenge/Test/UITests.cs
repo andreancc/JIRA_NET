@@ -1,32 +1,35 @@
 ﻿using ClassLibrary;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using RestSharp;
-using RestSharp.Authenticators;
 using System;
-using System.Configuration;
 using System.Threading;
+using OpenQA.Selenium;
+using NETChallenge.PageObject;
+using System.Configuration;
+
+
+
 
 namespace JiraAutomationTests
 {
     [TestFixture]
+   // [Parallelizable(ParallelScope.All)]
     public class UITests
     {
-        ChromeDriver _driver;
-        private WebDriverWait _wait;
+       private IWebDriver _driver;
+       
+       private WebDriverWait _wait;
+
         private readonly string BaseUrl = "http://localhost:8080";
+          
 
         [SetUp]
         public void SetUp()
         {
-            _driver = new ChromeDriver
-            {
-                Url = BaseUrl
-            };
-            _driver.Manage().Window.Maximize();
-            _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 30));
+            _driver = BrowserFactory.InitiatetBrowser("Chrome");
+            _driver.Url = BaseUrl;
+
+            _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 1000));
             var loginPage = new LoginPage(_driver);
             loginPage
                 .Username()
@@ -34,14 +37,14 @@ namespace JiraAutomationTests
                 .ClickLogin();
             Thread.Sleep(5000);
 
-        }
-
+       }
 
 
         [Test]
         public void JiraAllowsToCreateANewStory()
         {
-            
+            Console.WriteLine(_driver);
+
             var dashboardPage = new DashboardPage(_driver, _wait);
             Assert.IsTrue(dashboardPage.LogoDisplayed());
             dashboardPage

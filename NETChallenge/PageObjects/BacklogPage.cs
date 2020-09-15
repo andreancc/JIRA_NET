@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
 using OpenQA.Selenium.Interactions;
-
+using System;
 
 namespace ClassLibrary
 
@@ -20,7 +20,7 @@ namespace ClassLibrary
         IWebElement sendToSprintButton => wait.Until(driver => driver.FindElement(By.Id("ghx-issue-ctx-action-send-to-sprint-1")));
         IWebElement confirmSend => wait.Until(driver => driver.FindElement(By.CssSelector(".button-panel-button")));
         IWebElement ConfimrMessage => wait.Until(driver => driver.FindElement(By.CssSelector(".aui-message")));
-        
+
 
 
 
@@ -55,9 +55,11 @@ namespace ClassLibrary
         
         public BacklogPage SelectBacklog()
         {
-            Thread.Sleep(2000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+            
             backlogButton.Click();
-            Thread.Sleep(2000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+           
             Actions action = new Actions(driver);
             action.ContextClick(firstTicketBacklog).SendKeys(Keys.ArrowDown).SendKeys(Keys.Enter).Perform();
             confirmSend.Click();
@@ -67,9 +69,11 @@ namespace ClassLibrary
        
         public BacklogPage SelectFirstTicket()
         {
-            Thread.Sleep(2000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+            
             backlogButton.Click();
-            Thread.Sleep(2000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+            
             Actions action = new Actions(driver);
             action.ContextClick(firstTicketBacklog).SendKeys(Keys.Enter).Perform();
           

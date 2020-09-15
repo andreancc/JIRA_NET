@@ -33,7 +33,7 @@ namespace JiraLoginTest
                 .Username()
                 .fillPassword()
                 .ClickLogin();
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             var jiraLogo = _driver.FindElementById("jira");
             Assert.IsTrue(jiraLogo.Displayed);
         }
@@ -45,7 +45,7 @@ namespace JiraLoginTest
                 .Username()
                 .ClickLogin();
 
-            Thread.Sleep(5000);
+           // Thread.Sleep(5000);
 
             Assert.AreEqual(loginPage.FailedAccess(), "Sorry, your userid is required to answer a CAPTCHA question correctly.");
         }

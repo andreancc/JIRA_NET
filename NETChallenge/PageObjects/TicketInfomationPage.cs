@@ -1,9 +1,8 @@
-﻿using System;
+﻿
+using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System.Threading;
-using OpenQA.Selenium.Interactions;
+
 namespace ClassLibrary
 {
     public class TicketInfomationPage
@@ -12,8 +11,8 @@ namespace ClassLibrary
 
         IWebDriver driver;
         private WebDriverWait wait;
-        
-        
+
+
         IWebElement assignButton => driver.FindElement(By.Id("assign-issue"));
         IWebElement assignMe => driver.FindElement(By.Id("assign-to-me-trigger"));
         IWebElement submitButton => driver.FindElement(By.Id("assign-issue-submit"));
@@ -21,8 +20,8 @@ namespace ClassLibrary
         IWebElement commentButton => driver.FindElement(By.Id("opsbar-comment-issue_container"));
         IWebElement commentBody => wait.Until(driver => driver.FindElement(By.Id("comment")));
         IWebElement commentSubmit => driver.FindElement(By.Id("issue-comment-add-submit"));
-        
-       
+
+
 
 
         public TicketInfomationPage(IWebDriver driver, WebDriverWait wait)
@@ -41,7 +40,8 @@ namespace ClassLibrary
         }
         public TicketInfomationPage AssignPerson()
         {
-            Thread.Sleep(2000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+
             assignMe.Click();
             
             submitButton.Click();
@@ -55,7 +55,7 @@ namespace ClassLibrary
 
         public TicketInfomationPage CommentTicket(string comment)
         {
-            Thread.Sleep(2000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
             commentButton.Click();
             commentBody.SendKeys(comment);
             commentSubmit.Click();

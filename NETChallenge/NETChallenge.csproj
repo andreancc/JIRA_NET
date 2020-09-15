@@ -18,10 +18,15 @@
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="85.0.4183.8700" />
     <PackageReference Include="Selenium.Chrome.WebDriver" Version="85.0.0" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.27.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="PageObjects\" />
     <Folder Include="Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Test\app.config" />
+    <None Remove="app.config" />
   </ItemGroup>
 </Project>

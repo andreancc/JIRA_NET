@@ -9,14 +9,15 @@ namespace ClassLibrary
     public class LoginPage
     {
         private readonly string ConfigUsername = "andreancc";
+           
         private readonly string ConfigPassword = "andreancc";
         IWebDriver driver;
         private WebDriverWait wait;
-        private IWebElement user => driver.FindElement(By.Id("login-form-username"));
-        private IWebElement password => driver.FindElement(By.Id("login-form-password"));
-        private IWebElement loginButton => driver.FindElement(By.Id("login"));
-  
-        
+        private IWebElement User => driver.FindElement(By.Id("login-form-username"));
+        private IWebElement Password => driver.FindElement(By.Id("login-form-password"));
+        private IWebElement LoginButton => driver.FindElement(By.Id("login"));
+
+
 
         public LoginPage(IWebDriver driver)
         {
@@ -26,19 +27,19 @@ namespace ClassLibrary
 
         public LoginPage Username()
         {
-            user.SendKeys(ConfigUsername);
+            User.SendKeys(ConfigUsername);
             return this;
         }
 
         public LoginPage fillPassword()
         {
-            password.SendKeys(ConfigPassword);
+            Password.SendKeys(ConfigPassword);
             return this;
         }
 
         public LoginPage ClickLogin()
         {
-            loginButton.Click();
+            LoginButton.Click();
             return this;
         }
         public string FailedAccess()

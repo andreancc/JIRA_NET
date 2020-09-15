@@ -16,12 +16,12 @@ namespace ClassLibrary
         private WebDriverWait wait;
         IWebElement firstToDoSprintItem => wait.Until(driver => driver.FindElement(By.ClassName("ghx-issue-key-link")));
         IWebElement itemSprint => wait.Until(driver => driver.FindElement(By.ClassName("ghx-inner")));
-        
+
         IWebElement inProgressColumn => wait.Until(driver => driver.FindElement(By.CssSelector(".ghx-columns > .ghx-column:nth-child(2)")));
         IWebElement sprintButton => wait.Until(driver => driver.FindElement(By.LinkText("Active sprints")));
         IWebElement firstInProgresstItem => wait.Until(driver => driver.FindElement(By.XPath("//*[@class='ghx-column ui-sortable'][2]/*[1]")));
         IWebElement doneColumn => wait.Until(driver => driver.FindElement(By.CssSelector(".ghx-columns > .ghx-column:nth-child(3)")));
-        
+
 
 
 
@@ -63,7 +63,7 @@ namespace ClassLibrary
         }
         public int CountTicketsInProgress()
         {
-            Thread.Sleep(500);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
             int totalInProgressItems = driver.FindElements(By.XPath("//*[@class='ghx-column ui-sortable'][2]/div")).Count;
             Console.WriteLine(totalInProgressItems);
 
@@ -73,7 +73,7 @@ namespace ClassLibrary
         }
         public int CountTicketsInDone()
         {
-            Thread.Sleep(500);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
             int totalDoneItems = driver.FindElements(By.XPath("//*[@class='ghx-column ui-sortable'][3]/div")).Count;
             Console.WriteLine(totalDoneItems);
 

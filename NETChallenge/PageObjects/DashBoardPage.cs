@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using System;
 using System.Threading;
 
 
@@ -13,7 +14,7 @@ namespace ClassLibrary
         IWebElement jiraLogo => wait.Until(driver => driver.FindElement(By.Id("jira")));
         IWebElement createButton => driver.FindElement(By.Id("create_link"));
         IWebElement issueTypeButton => wait.Until(driver => driver.FindElement(By.Id("issuetype-field")));
-  
+
         IWebElement summaryTextBox => wait.Until(driver => driver.FindElement(By.Id("summary")));
         IWebElement sprintDropDown => driver.FindElement(By.Id("customfield_10100-field"));
         IWebElement sendFormButton => driver.FindElement(By.Id("create-issue-submit"));
@@ -51,7 +52,8 @@ namespace ClassLibrary
 
         {
             summaryTextBox.Click();
-            Thread.Sleep(500);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+            
             summaryTextBox.SendKeys(summary);
             return this;
         }
